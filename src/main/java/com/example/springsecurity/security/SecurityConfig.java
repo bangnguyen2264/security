@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         req -> req.requestMatchers("/api/v1/auth/**")
                                 .permitAll()
+                                .requestMatchers("api/v1/demo_controller").hasAnyAuthority("ROLE_ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 ).userDetailsService(userDetailsService)
