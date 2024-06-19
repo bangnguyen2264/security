@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import com.example.springsecurity.model.entity.User;
+import com.example.springsecurity.repository.UserRepository;
 import com.example.springsecurity.service.impl.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,9 @@ public class JwtService {
     private final UserDetailsServiceImpl userDetailsService;
 
     public String generateAccessToken(Authentication auth){
-        return jwtProperties.getPrefix() + JWT.create()
+        return
+//                jwtProperties.getPrefix() +
+                        JWT.create()
                 .withExpiresAt(Instant.now().plusMillis(jwtProperties.getAccessExpiresAt()))
                 .withSubject(auth.getName())
                 .withClaim("role", auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).findFirst().orElse(null))
@@ -33,7 +36,9 @@ public class JwtService {
     }
 
     public String generateRefreshToken(Authentication auth){
-        return jwtProperties.getPrefix() + JWT.create()
+        return
+//                jwtProperties.getPrefix() +
+                        JWT.create()
                 .withExpiresAt(Instant.now().plusMillis(jwtProperties.getRefreshExpiresAt()))
                 .withIssuedAt(Instant.now())
                 .withSubject(auth.getName())

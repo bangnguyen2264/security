@@ -18,5 +18,7 @@ public class Role {
     private Long id;
     @Column(unique = true)
     private String name;
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 
 }

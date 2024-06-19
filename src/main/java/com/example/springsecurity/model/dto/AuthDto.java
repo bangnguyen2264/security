@@ -11,7 +11,6 @@ public class AuthDto {
     private String token;
     private String refreshToken;
     private String username;
-    private String name;
     private String role;
 
     public static AuthDto from(User user, String token, String refreshToken){

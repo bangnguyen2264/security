@@ -4,10 +4,8 @@ import com.example.springsecurity.model.entity.User;
 import lombok.Data;
 
 @Data
-public class SignUpForm {
-    private String firstname;
+public class UpdateForm {
     private String lastname;
-    private String userName;
-    private String password;
-
+    private String firstname;
+    private String username;
 }

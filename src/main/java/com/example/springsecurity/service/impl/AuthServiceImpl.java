@@ -58,6 +58,8 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new IllegalArgumentException("Not found role ROLE_USER"));
 
         User user = User.builder()
+                .firstname(form.getFirstname())
+                .lastname(form.getLastname())
                 .username(form.getUserName())
                 .password(passwordEncoder.encode(form.getPassword()))
                 .role(role)

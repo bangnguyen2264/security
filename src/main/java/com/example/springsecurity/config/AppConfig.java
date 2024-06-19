@@ -19,8 +19,8 @@ public class AppConfig {
     @Bean
     public CommandLineRunner commandLineRunner(
             UserRepository userRepository,
-             RoleRepository roleRepository,
-             PasswordEncoder passwordEncoder
+            RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder
     ) {
         return args -> {
             Role user = Role.builder()
@@ -29,14 +29,35 @@ public class AppConfig {
             Role admin = Role.builder()
                     .name("ROLE_ADMIN")
                     .build();
+
+            roleRepository.save(user);
+            roleRepository.save(admin);
+
             User demoUser = User.builder()
+                    .lastname("Admin")
+                    .firstname("System")
                     .username("admin")
                     .password(passwordEncoder.encode("password"))
                     .role(admin)
                     .build();
-            roleRepository.save(user);
-            roleRepository.save(admin);
+
             userRepository.save(demoUser);
+
+            // List of first names and last names
+            String[] firstNames = {"John", "Jane", "Michael", "John", "Chris", "Anna", "David", "Sophia", "Daniel", "Olivia"};
+            String[] lastNames = {"Jones", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Martinez", "Hernandez"};
+
+            // Create 10 additional users with different names
+            for (int i = 0; i < 10; i++) {
+                User userInstance = User.builder()
+                        .lastname(lastNames[i])
+                        .firstname(firstNames[i])
+                        .username("user" + (i + 1))
+                        .password(passwordEncoder.encode("password" + (i + 1)))
+                        .role(user)
+                        .build();
+                userRepository.save(userInstance);
+            }
         };
     }
 
